@@ -4,4 +4,7 @@
 	max-height: 500px;
 }
 
+canvas, video {
+	display:none
+}
 

@@ -1,5 +1,43 @@
 import * as Magick from './wasm-imagemagick.esm-es2018.js'
 
+function setup () {
+	var canvas = document.querySelector('canvas')
+	var context = canvas.getContext('2d')
+	var video = document.querySelector('video')
+	return {
+		video,
+		context
+	}
+}
+function triggerPhotoTake (media) {
+	media.context.drawImage(media.video, 0, 0, 620, 480)
+	document.querySelector('canvas').setAttribute('style', 'display: block')
+	canvasToUInt8(media)
+}
+
+async function getMedia () {
+	let stream = null
+	try {
+		stream = await navigator.mediaDevices.getUserMedia({
+			video: true
+		})
+		// Grab elements, create settings, etc.
+		var video = document.querySelector('video')
+		// video.src = window.URL.createObjectURL(stream)
+		video.srcObject = stream
+		video.play()
+	} catch (err) {
+		console.log(err)
+	}
+}
+
+async function canvasToUInt8 (media) {
+	return document.querySelector('canvas').toBlob(async function (blob) {
+		window.webcamUInt8 = new Uint8Array(await new Response(blob).arrayBuffer())
+		console.log(window.webcamUInt8)
+	}, 'image/png')
+}
+
 async function loadImg (imgPath) {
 	let fetchedSourceImage = await fetch(imgPath)
 	let arrayBuffer = await fetchedSourceImage.arrayBuffer()
@@ -34,8 +72,18 @@ function outputMagickedImg (outputImg) {
 }
 
 async function startManipulation (event) {
-	if (document.querySelector('#pre-magicked').src) {
-		let sourceBytes = await loadImg(document.querySelector('#pre-magicked').src)
+	let ready = false
+	let sourceBytes
+	if (document.querySelector('#pre-magicked').src && document.querySelector('select').value !== 'webcam') {
+		console.log('image')
+		ready = true
+		sourceBytes = await loadImg(document.querySelector('#pre-magicked').src)
+	} else if (document.querySelector('select').value === 'webcam') {
+		console.log('webcam')
+		ready = true
+		sourceBytes = window.webcamUInt8
+	}
+	if(ready) {
 		let manipulationMatrix = determineManipulationArray(event.target.value)
 		let outputImg = await manipulateImg(sourceBytes, manipulationMatrix)
 		outputMagickedImg(outputImg)
@@ -43,9 +91,17 @@ async function startManipulation (event) {
 }
 
 (function () {
+	getMedia()
+	let media = setup()
 	document.querySelector('select').addEventListener('change', (event) => {
-		let imgPath = `./img/${event.target.value}.jpg`
-		document.querySelector('#pre-magicked').src = imgPath
+		if (event.target.value === 'webcam') {
+			document.querySelector('#pre-magicked').src = ''
+			triggerPhotoTake(media)
+		} else {
+			document.querySelector('canvas').setAttribute('style', 'display: none')
+			let imgPath = `./img/${event.target.value}.jpg`
+			document.querySelector('#pre-magicked').src = imgPath
+		}
 	})
 	let buttons = document.querySelectorAll('button')
 	buttons.forEach((button) => {
