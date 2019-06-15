@@ -4,7 +4,8 @@
   "description": "Slides/Demos for JSConf 2019",
   "main": "index.js",
   "dependencies": {
-    "12": "^1.0.2"
+    "12": "^1.0.2",
+    "http-server": "^0.11.1"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
