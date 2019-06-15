@@ -15,6 +15,8 @@ function determineManipulationArray (manipulationType) {
 	case 'rotate-left':
 		manipulationArray = ['-rotate', '-90']
 		break
+	case `border`:
+		manipulationArray = ['-bordercolor', 'black', '-border', '15x15']
 	}
 	return manipulationArray
 }
@@ -28,7 +30,6 @@ async function manipulateImg (sourceBytes, manipulationArray) {
 }
 
 function outputMagickedImg (outputImg) {
-	console.log(outputImg)
 	document.querySelector('#post-magicked').src = URL.createObjectURL(outputImg['blob'])
 }
 
