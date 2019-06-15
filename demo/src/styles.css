@@ -1,5 +1,13 @@
 #pre-magicked, #post-magicked {
 	display: block;
+	margin: 15px auto;
+}
+
+#pre-magicked {
 	max-height: 500px;
+}
+
+#post-magicked {
+	max-width: 500px;
 }
 

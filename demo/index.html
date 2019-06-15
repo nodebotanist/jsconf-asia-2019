@@ -1,18 +1,34 @@
 <!DOCTYPE html>
 <head>
 	<title>JSConf Asia Demo</title>
+	<link rel="stylesheet" href="./src/bootstrap.min.css">
 	<link rel="stylesheet" href="./src/styles.css">
 </head>
 <body>
-	<select name="image">
-		<option value="" selected>Select an Image</option>
-		<option value="derp">derp</option>
-		<option value="HTTP-200">HTTP 200</option>
-		<option value="javascript">JavaScript</option>
-		<option value="who-let-you">Who let you do this?</option>
-	</select>
-	<img id="pre-magicked" />
-	<button="rotate">rotate</button>
-	<img id="post-magicked" />
+	<div class="container">
+		<div class="row">
+			<select name="image">
+				<option value="" selected>Select an Image</option>
+				<option value="derp">derp</option>
+				<option value="HTTP-200">HTTP 200</option>
+				<option value="javascript">JavaScript</option>
+				<option value="who-let-you">Who let you do this?</option>
+			</select>
+		</div>
+		<div class="row">
+			<img id="pre-magicked" />
+		</div>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col">
+				<button value="rotate-right" class="js-manip btn btn-dark">Rotate Right</button>
+				<button value="rotate-left" class="js-manip btn btn-dark">Rotate Left</button>
+			</div>
+			<div class="col"></div>
+		</div>
+		<div class="row">
+			<img id="post-magicked" />
+		</div>
+	</div>
 	<script src="./dist/main.js"></script>
 </body>
