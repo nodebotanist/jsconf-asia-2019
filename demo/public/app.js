@@ -17,16 +17,25 @@ async function getMedia (pc) {
 	}
 }
 
-(function () {
-	console.log('hello')
-	getMedia()
-
+function setup() {
 	var canvas = document.querySelector('canvas')
 	var context = canvas.getContext('2d')
 	var video = document.querySelector('video')
+	return {
+		video,
+		context
+	}
+}
 
+function triggerPhotoTake(media) {
 	// Trigger photo take
 	document.querySelector('button').addEventListener('click', function () {
-		context.drawImage(video, 0, 0, 620, 480)
+		media.context.drawImage(media.video, 0, 0, 620, 480)
 	});
+}
+
+(function () {
+	getMedia()
+	let media = setup()
+	triggerPhotoTake(media)
 })()
