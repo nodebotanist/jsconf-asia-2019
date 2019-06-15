@@ -4,10 +4,14 @@
 	<link rel="stylesheet" href="./src/webcam-styles.css">
 </head>
 <body>
-	<div id="camera">
-		<video height=480 width=620></video>
-		<canvas height=480 width=620></canvas>
-		<button>Take Photo!</button>
-	</div>
+	<select name="image">
+		<option value="" selected>Select an Image</option>
+		<option value="derp.jpg">derp</option>
+		<option value="HTTP-200">HTTP 200</option>
+		<option value="javascript">JavaScript</option>
+		<option value="who-let-you">Who let you do this?</option>
+	</select>
+	<img id="pre-magicked" />
+	<img id="post-magicked" />
 	<script src="./dist/main.js"></script>
 </body>
