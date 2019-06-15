@@ -1,0 +1,13 @@
+#camera video {
+	margin:15px;
+	float:left;
+}
+
+#camera canvas {
+	margin:15px;
+	float:left;
+}
+
+#camera button {
+	clear:both;margin:30px;
+}
