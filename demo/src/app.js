@@ -53,8 +53,15 @@ function determineManipulationArray (manipulationType) {
 	case 'rotate-left':
 		manipulationArray = ['-rotate', '-90']
 		break
-	case `border`:
-		manipulationArray = ['-bordercolor', 'black', '-border', '15x15']
+	case 'grayscale':
+		manipulationArray = ['-set', 'colorspace', 'LinearGray']
+		break
+	case 'add-contrast':
+		manipulationArray = [ '+contrast' ]
+		break
+	case 'remove-contrast':
+		manipulationArray = ['-contrast']
+		break
 	}
 	return manipulationArray
 }
