@@ -95,10 +95,12 @@ async function startManipulation (event) {
 	let media = setup()
 	document.querySelector('select').addEventListener('change', (event) => {
 		if (event.target.value === 'webcam') {
-			document.querySelector('#pre-magicked').src = ''
+			document.querySelector('#pre-magicked').setAttribute('style', 'display: none')
+			document.querySelector('canvas').setAttribute('style', 'display: block')
 			triggerPhotoTake(media)
 		} else {
 			document.querySelector('canvas').setAttribute('style', 'display: none')
+			document.querySelector('#pre-magicked').setAttribute('style', 'display: block')
 			let imgPath = `./img/${event.target.value}.jpg`
 			document.querySelector('#pre-magicked').src = imgPath
 		}
